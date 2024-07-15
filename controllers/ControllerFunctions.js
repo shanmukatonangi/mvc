@@ -554,6 +554,13 @@ let products= [
 exports.Getfunc=(req,res)=>{
     res.send(products)
     }
+exports.Getone=(req,res)=>{  //localhost:8888/api/website/24
+  const id =+req.params.id //24
+  console.log(typeof id)
+const product= products.find((p)=>p.id==id)// ===24
+res.send(product)
+}
+
 
 
     exports.Postfunc=(req,res)=>{
@@ -563,17 +570,33 @@ exports.Getfunc=(req,res)=>{
 
 
         exports.Putfunc=(req,res)=>{
-            res.send("Welcome to my website put")
+          const id =+req.params.id //24
+        
+        const pid= products.findIndex((p)=>p.id==id)
+        console.log(pid)
+         products.splice(pid,1,{...req.body,id:id})
+        res.send(products)
+  
             }
 
 
             exports.Patchfunc=(req,res)=>{
-                res.send("Welcome to my website patch")
+              const id =+req.params.id //24
+        
+              const pid= products.findIndex((p)=>p.id==id) //23
+              const product= products.find((p)=>p.id==id)
+              console.log(pid)
+
+               products.splice(pid,1,{...product,...req.body})
+              res.send(products)
+        
                 }
 
 
                 exports.Deletefunc=(req,res)=>{
-                    res.send("Welcome to my website Delete")
+                  const id =+req.params.id 
+                  const pid= products.findIndex((p)=>p.id==id) //23
+                  products.splice(pid,1)
                     }
 
 
